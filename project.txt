@@ -1,0 +1,7 @@
+WhoSpitThat?
+
+
+Sqlite
+Springboot
+Angular
+Docker
