@@ -4,10 +4,13 @@ import com.quizz.whospitthatapi.dto.UserDto;
 import com.quizz.whospitthatapi.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
     User createUser(UserDto user);
     List<User> getALlUsers();
-    User getUserById(Long id);
+    Optional<User> getUserById(Long id);
+    User updateUser(User user);
+    void deleteUser(User user);
 }
