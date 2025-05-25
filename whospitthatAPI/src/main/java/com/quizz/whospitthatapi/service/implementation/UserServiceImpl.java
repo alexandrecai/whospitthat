@@ -1,10 +1,12 @@
 package com.quizz.whospitthatapi.service.implementation;
 
-import com.quizz.whospitthatapi.dto.UserDto;
+import com.quizz.whospitthatapi.dto.SignUpUser;
 import com.quizz.whospitthatapi.entity.User;
 import com.quizz.whospitthatapi.repository.UserRepository;
 import com.quizz.whospitthatapi.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,21 +17,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Override
-    public User createUser(UserDto user) {
-        User newUser = User.builder()
-                .name(user.getName())
-                .email(user.getEmail())
-                .highscore(0)
-                .password(user.getPassword())
-                .pictureUrl(user.getPictureUrl())
-                .build();
-        return userRepository.save(newUser);
     }
 
     @Override
@@ -50,5 +39,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user){
         userRepository.delete(user);
+    }
+
+    @Override
+    public UserDetailsService userDetailService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                return userRepository.findByEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+            }
+        };
     }
 }

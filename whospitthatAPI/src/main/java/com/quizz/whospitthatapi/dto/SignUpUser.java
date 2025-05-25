@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class SignUpUser {
 
     private String name;
     private String email;
     private String password;
-    private int highscore;
     private String pictureUrl;
 }
