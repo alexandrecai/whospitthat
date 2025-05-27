@@ -64,4 +64,10 @@ public class QuestionController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/random")
+    public ResponseEntity<List<Question>> getRandomQuestions(@RequestParam int number){
+        List<Question> questions = questionService.getRandomQuestions(number);
+        return ResponseEntity.ok().body(questions);
+    }
 }

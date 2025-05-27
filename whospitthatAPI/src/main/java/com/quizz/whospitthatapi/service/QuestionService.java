@@ -14,4 +14,5 @@ public interface QuestionService {
     Optional<Question> getQuestionById(Long id);
     Question updateQuestion(Question question);
     void deleteQuestion(Question question);
+    List<Question> getRandomQuestions(int nbOfQuestions);
 }
