@@ -1,8 +1,10 @@
 package com.quizz.whospitthatapi;
 
+import com.quizz.whospitthatapi.dto.SignUpUser;
 import com.quizz.whospitthatapi.entity.Question;
 import com.quizz.whospitthatapi.entity.QuestionType;
 import com.quizz.whospitthatapi.repository.QuestionRepository;
+import com.quizz.whospitthatapi.service.AuthService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,11 +20,13 @@ public class WhospitthatApiApplication {
     }
 
     @Bean
-    CommandLineRunner runner(QuestionRepository questionRepository){
+    CommandLineRunner runner(QuestionRepository questionRepository, AuthService authService){
         return args -> {
             for (int i = 0; i<20; i++){
                 questionRepository.save(createQuestion(i));
             }
+
+            authService.signUpUser(new SignUpUser("user","user@email.com","password",""));
         };
     }
 
