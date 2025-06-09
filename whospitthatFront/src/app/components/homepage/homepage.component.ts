@@ -9,10 +9,9 @@ import {QuestionService} from '../../services/question.service';
 })
 export class HomepageComponent {
 
-  constructor(private questionService: QuestionService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.questionService.getQuestionById("2").subscribe();
   }
 }

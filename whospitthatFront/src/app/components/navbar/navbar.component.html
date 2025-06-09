@@ -1,1 +1,7 @@
-<p>navbar works!</p>
+<div class="d-flex justify-content-center bg-light">
+  <p class="pe-5">WhoSpitThat?</p>
+  <a *ngIf="!this.varstorageService.gettoken()" href="/login">Login</a>
+  <a *ngIf="this.varstorageService.gettoken()" (click)="this.authService.logout()">Logout</a>
+</div>
+
+

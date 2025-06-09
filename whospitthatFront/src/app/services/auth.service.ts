@@ -37,4 +37,8 @@ export class AuthService {
         })
       );
   }
+
+  logout(){
+    this.varstorage.setToken(null);
+  }
 }
