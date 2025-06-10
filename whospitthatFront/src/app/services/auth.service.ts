@@ -38,6 +38,28 @@ export class AuthService {
       );
   }
 
+  register(name:string, email:string, password:string,pictureUrl:string): Observable<any> {
+    const user = {
+      name:name,
+      email:email,
+      password:password,
+      pictureUrl:pictureUrl
+    }
+
+    return this.http.post(`${this.apiurl}/signup`, user,this.httpOptions)
+    .pipe(
+      tap({
+        next: (response) => {
+          this.login(email, password).subscribe();
+        },
+        error: (error) => {
+          this.varstorage.errorResponse(error, 'Email already used');
+        }
+        }
+      )
+    )
+  }
+
   logout(){
     this.varstorage.setToken(null);
   }

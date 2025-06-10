@@ -1,7 +1,31 @@
-<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-  <input type="text" name="email" ngModel required>
-  <input type="password" name="password" ngModel required>
-  <button type="submit" [disabled]="!loginForm.valid">
-    Login
-  </button>
-</form>
+<div class="d-flex justify-content-center align-content-center">
+  <div class="d-flex flex-column col-4 align-items-center">
+
+    <form class="d-flex flex-column col-3" *ngIf="isLogin" #loginForm="ngForm" (ngSubmit)="onSubmitSignin(loginForm)">
+      <label>Email</label>
+      <input type="text" name="email" ngModel required>
+      <label>Password</label>
+      <input type="password" name="password" ngModel required>
+      <button type="submit" [disabled]="!loginForm.valid">
+        Login
+      </button>
+    </form>
+
+    <form class="d-flex flex-column col-3" *ngIf="!isLogin" #RegisterForm="ngForm" (ngSubmit)="onSubmitSignup(RegisterForm)">
+      <label>Name</label>
+      <input type="text" name="name" ngModel required>
+      <label>Email</label>
+      <input type="text" name="email" ngModel required>
+      <label>Password</label>
+      <input type="password" name="password" ngModel required>
+      <button type="submit" [disabled]="!RegisterForm.valid">
+        Signup
+      </button>
+    </form>
+
+    <button class="col-2 m-2" (click)="switchAuthMode()">
+      <p *ngIf="isLogin">Doesn't have an account ?</p>
+      <p *ngIf="!isLogin">Already have an account ?</p>
+    </button>
+  </div>
+</div>
