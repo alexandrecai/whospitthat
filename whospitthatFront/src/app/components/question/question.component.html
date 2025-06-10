@@ -1,0 +1,11 @@
+<div class="bg-light d-flex flex-column align-items-center m-3 col-6">
+  <img *ngIf="currentQuestion.mediaUrl" [ngSrc]="currentQuestion.mediaUrl" alt="Media image" height="100" width="200"/>
+  <h2>{{currentQuestion.questionText}}</h2>
+
+  <input *ngIf="currentQuestion.answers.length == 0" />
+  <div class=" grid-display" *ngIf="currentQuestion.answers.length > 0">
+    @for (answer of currentQuestion.answers; track currentQuestion.questionText) {
+      <button>{{answer}}</button>
+    }
+  </div>
+</div>
