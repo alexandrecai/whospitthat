@@ -23,4 +23,13 @@ export class QuestionService {
         })
       );
   }
+
+  getRandomsQuestions(nbOfQuestions: number): Observable<any> {
+    const apiUrlWithId = `${this.apiurl}/random`
+    return this.http.get(apiUrlWithId,{
+      params: {
+        number: nbOfQuestions,
+      }
+    })
+  }
 }

@@ -16,12 +16,29 @@ import {QuestionType} from '../../models/questionType';
 export class QuestionComponent implements OnInit {
 
   currentQuestion!: Question;
+  nextQuestions!: Question[];
+  previousQuestions!: Question[];
+  currentScore: number = 0;
 
   constructor(private questionService: QuestionService) {
   }
 
   ngOnInit(): void {
-        this.currentQuestion = new Question("1","What's this rapper's name ?",["Travis Scott","J.Cole","Kendrick Lamar","Drake"],"answer1","https://snworksceo.imgix.net/asp/a500f30d-5d01-4216-830e-8a87ff0be7d3.sized-1000x1000.jpg?w=1000",QuestionType.BASIC);
-    }
+    this.nextQuestions = [];
+    this.currentQuestion = new Question("","",[],"","",QuestionType.BASIC);
+    this.questionService.getRandomsQuestions(10).subscribe(
+      (response) => {
+        let answers;
+        for (let question of response) {
+          answers = [];
+          for (let answer of question["answers"]) {
+            answers.push(answer);
+          }
+          this.nextQuestions.push(new Question(question["id"],question["questionText"],answers,question["goodAnswer"],question["mediaUrl"],question["questionType"]));
 
+        }
+        this.currentQuestion = this.nextQuestions.pop()!;
+      }
+    );
+  }
 }
